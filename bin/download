@@ -10,14 +10,26 @@ source "${plugin_dir}/lib/utils.bash"
 
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
-# TODO: Adapt this to proper extension and adapt extracting strategy.
-release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.tar.gz"
+case "$(uname -s)" in
+    "Darwin")
+        arch=$(uname -m)
+        if [[ "$arch" == "x86_64" ]]; then
+            DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
+        else
+            DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
+        fi
+        ;;
+    "Linux")
+        DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
+        ;;
+    # Add more OS cases if needed
+    *)
+        echo "Unsupported operating system"
+        exit 1
+        ;;
+esac
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION"
 
-# Download tar.gz file to the download directory
-download_release "$ASDF_INSTALL_VERSION" "$release_file"
+# Download release file to the download directory
+curl -fL -o "$release_file" "${DOWNLOAD_URL}"
 
-#  Extract contents of tar.gz file into the download directory
-tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" --strip-components=1 || fail "Could not extract $release_file"
-
-# Remove the tar.gz file since we don't need to keep it
-rm "$release_file"
