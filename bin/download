@@ -28,8 +28,8 @@ case "$(uname -s)" in
         exit 1
         ;;
 esac
-release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION"
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 
 # Download release file to the download directory
-curl -fL -o "$release_file" "${DOWNLOAD_URL}"
+download_release "$ASDF_INSTALL_VERSION" "$release_file" "${DOWNLOAD_URL}"
 

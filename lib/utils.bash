@@ -37,8 +37,7 @@ download_release() {
 	local version filename url
 	version="$1"
 	filename="$2"
-
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$3"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -55,7 +54,7 @@ install_version() {
 
 	(
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path/intlc"
 
 		# TODO: Assert inltc executable exists.
 		local tool_cmd
