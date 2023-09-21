@@ -11,25 +11,24 @@ source "${plugin_dir}/lib/utils.bash"
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
 case "$(uname -s)" in
-    "Darwin")
-        arch=$(uname -m)
-        if [[ "$arch" == "x86_64" ]]; then
-            DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
-        else
-            DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
-        fi
-        ;;
-    "Linux")
-        DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
-        ;;
-    # Add more OS cases if needed
-    *)
-        echo "Unsupported operating system"
-        exit 1
-        ;;
+"Darwin")
+	arch=$(uname -m)
+	if [[ "$arch" == "x86_64" ]]; then
+		DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
+	else
+		DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
+	fi
+	;;
+"Linux")
+	DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
+	;;
+# Add more OS cases if needed
+*)
+	echo "Unsupported operating system"
+	exit 1
+	;;
 esac
 release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 
 # Download release file to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file" "${DOWNLOAD_URL}"
-
