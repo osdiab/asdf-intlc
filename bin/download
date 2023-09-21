@@ -10,14 +10,35 @@ source "${plugin_dir}/lib/utils.bash"
 
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
-# TODO: Adapt this to proper extension and adapt extracting strategy.
-release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.tar.gz"
+# different format for old versions of intlc
+is_old_version=$([[ "$ASDF_INSTALL_VERSION" =~ ^0\.[0-7].*$ ]] && echo true || echo false)
+base_download_url="https://github.com/unsplash/intlc/releases/download"
 
-# Download tar.gz file to the download directory
-download_release "$ASDF_INSTALL_VERSION" "$release_file"
+case "$(uname -s)" in
+"Darwin")
+	arch=$(uname -m)
+	if [[ "$is_old_version" == "true" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc_macos"
+	elif [[ "$arch" == "x86_64" || "$ASDF_INSTALL_VERSION" == "0.8.0" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
+	else
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
+	fi
+	;;
+"Linux")
+	if [[ "$is_old_version" == "true" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc_linux"
+	else
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
+	fi
+	;;
+# Add more OS cases if needed
+*)
+	echo "Unsupported operating system"
+	exit 1
+	;;
+esac
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
 
-#  Extract contents of tar.gz file into the download directory
-tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" --strip-components=1 || fail "Could not extract $release_file"
-
-# Remove the tar.gz file since we don't need to keep it
-rm "$release_file"
+# Download release file to the download directory
+download_release "$ASDF_INSTALL_VERSION" "$release_file" "${DOWNLOAD_URL}"
