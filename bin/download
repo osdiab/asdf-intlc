@@ -10,17 +10,27 @@ source "${plugin_dir}/lib/utils.bash"
 
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
+# different format for old versions of intlc
+is_old_version=$([[ "$ASDF_INSTALL_VERSION" =~ ^0\.[0-7].*$ ]] && echo true || echo false)
+base_download_url="https://github.com/unsplash/intlc/releases/download"
+
 case "$(uname -s)" in
 "Darwin")
 	arch=$(uname -m)
-	if [[ "$arch" == "x86_64" ]]; then
-		DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
+	if [[ "$is_old_version" == "true" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-macos"
+	elif [[ "$arch" == "x86_64" || "$ASDF_INSTALL_VERSION" == "0.8.0" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
 	else
-		DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-aarch64"
 	fi
 	;;
 "Linux")
-	DOWNLOAD_URL="https://github.com/unsplash/intlc/releases/download/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
+	if [[ "$is_old_version" == "true" ]]; then
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-linux"
+	else
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
+	fi
 	;;
 # Add more OS cases if needed
 *)
