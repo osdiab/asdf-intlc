@@ -5,7 +5,7 @@ Testing Locally:
 ```shell
 asdf plugin test <plugin-name> <plugin-url> [--asdf-tool-version <version>] [--asdf-plugin-gitref <git-ref>] [test-command*]
 
-asdf plugin test inltc https://github.com/osdiab/asdf-inltc.git "intlc --version"
+asdf plugin test intlc https://github.com/osdiab/asdf-intlc.git "intlc --version"
 ```
 
 Tests are automatically run in GitHub Actions on push and PR.

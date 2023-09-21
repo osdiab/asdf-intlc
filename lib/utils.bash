@@ -3,7 +3,7 @@
 set -euo pipefail
 
 GH_REPO="https://github.com/unsplash/intlc"
-TOOL_NAME="inltc"
+TOOL_NAME="intlc"
 TOOL_TEST="intlc --version"
 
 fail() {
@@ -13,7 +13,7 @@ fail() {
 
 curl_opts=(-fsSL)
 
-# NOTE: You might want to remove this if inltc is not hosted on GitHub releases.
+# NOTE: You might want to remove this if intlc is not hosted on GitHub releases.
 if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
@@ -57,7 +57,7 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path/intlc"
 		chmod +x "$install_path/intlc"
 
-		# TODO: Assert inltc executable exists.
+		# TODO: Assert intlc executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."

@@ -1,8 +1,8 @@
 <div align="center">
 
-# asdf-inltc [![Build](https://github.com/osdiab/asdf-inltc/actions/workflows/build.yml/badge.svg)](https://github.com/osdiab/asdf-inltc/actions/workflows/build.yml) [![Lint](https://github.com/osdiab/asdf-inltc/actions/workflows/lint.yml/badge.svg)](https://github.com/osdiab/asdf-inltc/actions/workflows/lint.yml)
+# asdf-intlc [![Build](https://github.com/osdiab/asdf-intlc/actions/workflows/build.yml/badge.svg)](https://github.com/osdiab/asdf-intlc/actions/workflows/build.yml) [![Lint](https://github.com/osdiab/asdf-intlc/actions/workflows/lint.yml/badge.svg)](https://github.com/osdiab/asdf-intlc/actions/workflows/lint.yml)
 
-[inltc](https://github.com/unsplash/intlc) plugin for the [asdf version manager](https://asdf-vm.com).
+[intlc](https://github.com/unsplash/intlc) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
@@ -17,24 +17,22 @@
 Plugin:
 
 ```shell
-asdf plugin add inltc
-# or
-asdf plugin add inltc https://github.com/osdiab/asdf-inltc.git
+asdf plugin add intlc https://github.com/osdiab/asdf-intlc.git
 ```
 
-inltc:
+intlc:
 
 ```shell
 # Show all installable versions
-asdf list-all inltc
+asdf list-all intlc
 
 # Install specific version
-asdf install inltc latest
+asdf install intlc latest
 
 # Set a version globally (on your ~/.tool-versions file)
-asdf global inltc latest
+asdf global intlc latest
 
-# Now inltc commands are available
+# Now intlc commands are available
 intlc --version
 ```
 
@@ -45,7 +43,7 @@ install & manage versions.
 
 Contributions of any kind welcome! See the [contributing guide](contributing.md).
 
-[Thanks goes to these contributors](https://github.com/osdiab/asdf-inltc/graphs/contributors)!
+[Thanks goes to these contributors](https://github.com/osdiab/asdf-intlc/graphs/contributors)!
 
 # License
 
