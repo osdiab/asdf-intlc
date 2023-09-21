@@ -18,7 +18,7 @@ case "$(uname -s)" in
 "Darwin")
 	arch=$(uname -m)
 	if [[ "$is_old_version" == "true" ]]; then
-		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-macos"
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc_macos"
 	elif [[ "$arch" == "x86_64" || "$ASDF_INSTALL_VERSION" == "0.8.0" ]]; then
 		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-macos-x86_64"
 	else
@@ -27,7 +27,7 @@ case "$(uname -s)" in
 	;;
 "Linux")
 	if [[ "$is_old_version" == "true" ]]; then
-		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-linux"
+		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc_linux"
 	else
 		DOWNLOAD_URL="$base_download_url/v${ASDF_INSTALL_VERSION}/intlc-v${ASDF_INSTALL_VERSION}-linux-x86_64"
 	fi
