@@ -55,6 +55,7 @@ install_version() {
 	(
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path/intlc"
+		ls -la $install_path
 
 		# TODO: Assert inltc executable exists.
 		local tool_cmd
